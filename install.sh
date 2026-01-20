@@ -194,25 +194,29 @@ setup_cron() {
     if [[ "$response" =~ ^[Yy]$ ]]; then
         echo "Adding cron jobs to root crontab..."
         
-        # Create temporary crontab file
-        crontab -l > /tmp/current_crontab 2>/dev/null || true
+        # Create temporary crontab file with secure permissions
+        local temp_crontab=$(mktemp)
+        chmod 600 "$temp_crontab"
+        
+        # Get current crontab
+        crontab -l > "$temp_crontab" 2>/dev/null || true
         
         # Check if entries already exist
-        if grep -q "block-scanners.sh" /tmp/current_crontab 2>/dev/null; then
+        if grep -q "block-scanners.sh" "$temp_crontab" 2>/dev/null; then
             echo -e "${YELLOW}⚠${NC} Cron jobs for block-scanners.sh already exist. Skipping..."
         else
             # Add new entries
-            echo "" >> /tmp/current_crontab
-            echo "# KittyScan IP Blocker - Auto-generated entries" >> /tmp/current_crontab
-            echo "@reboot /usr/local/bin/block-scanners.sh" >> /tmp/current_crontab
-            echo "0 3 * * * /usr/local/bin/block-scanners.sh" >> /tmp/current_crontab
+            echo "" >> "$temp_crontab"
+            echo "# KittyScan IP Blocker - Auto-generated entries" >> "$temp_crontab"
+            echo "@reboot /usr/local/bin/block-scanners.sh" >> "$temp_crontab"
+            echo "0 3 * * * /usr/local/bin/block-scanners.sh" >> "$temp_crontab"
             
             # Install new crontab
-            crontab /tmp/current_crontab
+            crontab "$temp_crontab"
             echo -e "${GREEN}✓${NC} Cron jobs added successfully"
         fi
         
-        rm -f /tmp/current_crontab
+        rm -f "$temp_crontab"
     else
         echo ""
         echo "To manually add cron jobs, edit root crontab:"

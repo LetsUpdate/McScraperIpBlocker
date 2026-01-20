@@ -9,7 +9,7 @@
 # Configuration
 BLOCKLIST_URL="https://raw.githubusercontent.com/LillySchramm/KittyScanBlocklist/main/ips-24.txt"
 LOG_FILE="/var/log/kittyscan-blocker.log"
-TEMP_FILE="/tmp/kittyscan-ips-$$.txt"
+TEMP_FILE=$(mktemp /tmp/kittyscan-ips.XXXXXX)
 UFW_COMMENT="KITTYSCAN"
 
 # Color codes for terminal output

@@ -131,23 +131,23 @@ sudo /usr/local/bin/block-scanners.sh
 The KittyScanBlocklist repository provides different blocklist files:
 
 - **`ips.txt`**: All detected scanner IPs (largest list, most comprehensive)
-- **`ips-16.txt`**: IPs detected in the last 16 days (recommended for most users)
-- **`ips-24.txt`**: IPs detected in the last 24 hours (default, most recent)
+- **`ips-16.txt`**: IPs detected in the last 16 days (balanced option)
+- **`ips-24.txt`**: IPs detected in the last 24 hours (default, most recent and actively scanning)
 
 To change which blocklist to use, edit `/usr/local/bin/block-scanners.sh` and modify the `BLOCKLIST_URL` variable:
 
 ```bash
-# For 24-hour list (default)
+# For 24-hour list (default - recommended for active protection)
 BLOCKLIST_URL="https://raw.githubusercontent.com/LillySchramm/KittyScanBlocklist/main/ips-24.txt"
 
-# For 16-day list (recommended)
+# For 16-day list (more comprehensive)
 BLOCKLIST_URL="https://raw.githubusercontent.com/LillySchramm/KittyScanBlocklist/main/ips-16.txt"
 
-# For complete list
+# For complete list (most comprehensive, larger rule set)
 BLOCKLIST_URL="https://raw.githubusercontent.com/LillySchramm/KittyScanBlocklist/main/ips.txt"
 ```
 
-**Recommendation**: Use `ips-24.txt` for active servers with frequent scans, or `ips-16.txt` for a balance between comprehensive blocking and reduced rule count.
+**Recommendation**: Use `ips-24.txt` (default) for the most recent and actively scanning IPs, or `ips-16.txt` for a balance between comprehensive blocking and reduced rule count.
 
 ## 📖 Usage
 
