@@ -1,0 +1,28 @@
+# Log files
+*.log
+/var/log/kittyscan-blocker.log
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/kittyscan-*
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Test files
+test/
+tests/
