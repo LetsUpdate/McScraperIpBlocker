@@ -1,0 +1,19 @@
+# KittyScan IP Blocker - Crontab Configuration
+# Add these entries to your root crontab using: sudo crontab -e
+
+# Run at system boot (backup method in addition to systemd service)
+# This ensures the blocklist is updated even if systemd service fails
+@reboot /usr/local/bin/block-scanners.sh
+
+# Run daily at 3 AM to update the blocklist
+# This time is chosen to avoid peak hours and matches KittyScanBlocklist update schedule
+0 3 * * * /usr/local/bin/block-scanners.sh
+
+# Alternative: Run weekly on Sunday at 3 AM (uncomment if you prefer weekly updates)
+# 0 3 * * 0 /usr/local/bin/block-scanners.sh
+
+# Alternative: Run every 6 hours (uncomment for more frequent updates)
+# 0 */6 * * * /usr/local/bin/block-scanners.sh
+
+# To view the log file and check if updates are working:
+# tail -f /var/log/kittyscan-blocker.log

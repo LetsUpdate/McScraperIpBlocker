@@ -1,0 +1,15 @@
+[Unit]
+Description=KittyScan IP Blocker Service
+Documentation=https://github.com/LetsUpdate/McScraperIpBlocker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/block-scanners.sh
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=kittyscan-blocker
+
+[Install]
+WantedBy=multi-user.target
